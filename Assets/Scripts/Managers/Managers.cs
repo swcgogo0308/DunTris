@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent (typeof(TetrisManager))]
 
-public class InGameManagers : MonoBehaviour {
+public class Managers : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
