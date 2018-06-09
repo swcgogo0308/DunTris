@@ -26,6 +26,7 @@ public class TetrisShape : MonoBehaviour {
     bool freeFall = true;
 
     bool doNotRotate;
+
     public bool DoNotRotate
     {
         set
@@ -117,7 +118,7 @@ public class TetrisShape : MonoBehaviour {
             
             enabled = false;
 
-            FindObjectOfType<TetrisManager>().BlockSpawn();
+            FindObjectOfType<SpawnManager>().BlockSpawn();
             if (CheckIsLineOver()) FindObjectOfType<TetrisManager>().LineOver(); //세로줄 체크
         }
         else

@@ -2,19 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class BlockColor
-{
-    public GameObject[] blocks;
-}
-
 public class TetrisManager : MonoBehaviour {
-    bool isSpawning = true;
-
-    public Transform blockHolder;
-    public BlockColor[] blockColors;
-
-    public static int blockCount = 1;
     public static int gridWidth = 11;
     public static int gridHeight = 15;
 
@@ -22,15 +10,15 @@ public class TetrisManager : MonoBehaviour {
 
     public static Transform[,] grid = new Transform[gridWidth, gridHeight];
 
-	void Start () {
-        BlockSpawn();
+    #region Methods
+
+    void Start () {
+        FindObjectOfType<SpawnManager>().BlockSpawn();
 	}
 	
 	void Update () {
         FindObjectOfType<TetrisShape>().FallSpeed = fallSpeed;
     }
-
-    #region 가로줄 지우기
 
     public bool IsFullRowAt (int y)
     {
@@ -91,11 +79,6 @@ public class TetrisManager : MonoBehaviour {
         }
     }
 
-    #endregion
-
-
-    #region Check to Tetris Blocks
-
     public void UpdateGrid(TetrisShape tetris)
     {
         for(int y = 0; y < gridHeight; ++y)
@@ -141,7 +124,7 @@ public class TetrisManager : MonoBehaviour {
 
     public void LineOver()
     {
-        isSpawning = false;
+        FindObjectOfType<SpawnManager>().IsSpawning = false;
     }
 
     public bool CheckIsInsideGrid(Vector2 pos)
@@ -154,35 +137,10 @@ public class TetrisManager : MonoBehaviour {
         return new Vector2(Mathf.Round(pos.x), Mathf.Round(pos.y));
     }
 
-    #endregion
-
-    #region Events
-
-    public void BlockSpawn()
-    {
-        if (!isSpawning) return;
-
-        int randomColor = Random.Range(0, blockColors.Length);
-        int randomBlock = Random.Range(0, blockColors[randomColor].blocks.Length);
-
-        // Spawn Group at current Position
-        GameObject temp = Instantiate(blockColors[randomColor].blocks[randomBlock]);
-
-        temp.name = "block" + blockCount;
-        blockCount++;
-
-        temp.transform.parent = blockHolder;
-        temp.transform.position = new Vector3(6f, 10f, 0f);
-
-        temp.AddComponent<TetrisShape>();
-        if (randomBlock == 3) temp.GetComponent<TetrisShape>().DoNotRotate = true;
-    }
-
     public void FallSpeedChange(float fallSpeed)
     {
         this.fallSpeed = fallSpeed;
     }
-
     #endregion
 
 }

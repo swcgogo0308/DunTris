@@ -237,6 +237,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Managers\InGameManagers.cs" />
     <Compile Include="Assets\Scripts\Managers\RPGManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TetrisManager.cs" />
     <Compile Include="Assets\Scripts\RPG\IUnitHandler.cs" />
     <Compile Include="Assets\Scripts\RPG\Player.cs" />
